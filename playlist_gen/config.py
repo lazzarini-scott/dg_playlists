@@ -4,3 +4,8 @@ HISTORIC_URL = "http://www.deathguild.com/playdates/"
 PLAYLIST_URL = "http://www.deathguild.com/playlist/"
 # DATABASE HERE
 ENABLE_DATABASE = False
+HOST = "localhost"
+DATABASE = "dg_playlists"
+USER = "scott"
+PASSWORD = "password"
+SCHEMA = "dg_schema"

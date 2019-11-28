@@ -51,16 +51,20 @@ class Scraper:
         pass
 
     def organize_playlist_data(self, date, playlist):
-        # TODO - creates an OOP list of the playlist data
         position = 1
         song_objs = []
         for track in playlist:
             song_data = track.rsplit(' – ', 1)
-            song_objs.append(Song(song_data[0], song_data[1], position))
+            song_name = song_data[1]
+            isRequest = False
+            if(song_name.endswith('R')):
+                isRequest = True
+                song_name = song_name[:-1]
+            song_objs.append(Song(song_data[0], song_name, position, isRequest))
             position += 1
 
-        date_time = datetime.datetime.strptime(date, "%B %d, %Y")
-        return Playlist("Death Guild - Main " + date_time.date(), date_time.date(), song_objs)
+        date_time = datetime.datetime.strptime(date.split('\t')[1], "%B %d, %Y")
+        return Playlist("Death Guild - " + str(date_time.date()) + " - Main", date_time.date(), song_objs)
 
     def scrape_playlist_data(self, all_playlists):
         links = []
@@ -76,9 +80,5 @@ class Scraper:
             # add here?
             playlist_objs.append(playlist_obj)
 
-
-        playlist = Playlist("a", "b", "c")
-        print(playlist.date)
-
-        date, playlist = get_playlist("http://www.deathguild.com/playlist/")
+        return playlist_objs
 
